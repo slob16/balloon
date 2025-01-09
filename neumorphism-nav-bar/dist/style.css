@@ -1,0 +1,107 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 900px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ced4da;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+.components {
+  width: 600px;
+  height: 200px;
+  border-radius: 48px;
+  box-shadow: 12px 12px 15px #adb5bd, -3px -3px 28px #f8f9fa;
+  padding: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   background-color: #e0e5ec;
+}
+
+.segmented-control {
+  grid-column: 4/4;
+  grid-row: 1/2;
+  width: 274px; 
+  height: 40px;
+  box-shadow: 3px 3px 6px #c8d0e7, -2px -2px 5px #FFFFFF;
+  border-radius: 10px; 
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.segmented-control input {
+  display: none;
+}
+
+.segmented-control > input:checked + label {
+  transition: all 0.5s ease;
+  color: #ff5d8f;
+}
+
+.segmented-control__1,
+.segmented-control__2,
+.segmented-control__3,
+.segmented-control__4 {
+  width: 68px; 
+  height: 36px; 
+  font-size: 14px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #9baacf;
+  transition: all 0.5s ease;
+}
+
+.segmented-control__1:hover,
+.segmented-control__2:hover,
+.segmented-control__3:hover,
+.segmented-control__4:hover {
+  color: #ff5d8f;
+}
+
+.segmented-control__color {
+  position: absolute;
+  height: 34px; 
+  width: 62px; 
+  margin-left: 3px; 
+  border-radius: 8px; 
+  box-shadow: inset 2px 2px 5px #c8d0e7, inset -2px -2px 5px #FFFFFF;
+  pointer-events: none;
+}
+
+#tab-1:checked ~ .segmented-control__color {
+  transform: translateX(0);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab-2:checked ~ .segmented-control__color {
+  transform: translateX(68px); 
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab-3:checked ~ .segmented-control__color {
+  transform: translateX(136px); 
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab-4:checked ~ .segmented-control__color {
+  transform: translateX(204px); 
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
