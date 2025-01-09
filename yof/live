@@ -1,0 +1,69 @@
+/* 
+  Hot Air Balloon by Richard Bourne, created June 26, 2023 for the #WCCChallenge 'Floating'. A few years back when I had a chance to take a hot air balloon ride, I 
+	talked to the pilot about his technique. He explained that a hot air balloon does not fly at a constant altitude. 
+  It constantly rises and falls as the propane burner is turned on and off by the pilot. The trick is to keep
+	the height oscillations to a minimum range, thereby conserving fuel.
+	
+  This was an experiment to create an animation with synchronized sound. I thought I would need 
+	to play the sound each time the burner came on, and stop it when the burner shut off. But due to some
+	uncanny luck, the free hot air burner sound I downloaded was the right length to end in sync with the flame,
+	so I only needed the stop command once. Each burst is triggered by frameCount every 630 frames. The burn 
+	cycle shown in this sketch is speeded up quite a bit compared to one in a real-life flight.
+*/
+let img, img2, img3, snd; 
+
+
+
+function preload(){
+  img = loadImage('IMG_4072.PNG');     // hot air balloon
+	img2 = loadImage('IMG_4073.PNG');    // small section of balloon to hide top of flame
+	img3 = loadImage('IMG_4069.JPG');    // clouds
+	snd = loadSound('HotAirBurner.wav'); // burner sound
+}
+let posX = -550;
+let posY = 0;
+let trigger = 630;
+
+function setup() {
+	createCanvas(1112, 834);
+	background(255);
+	noStroke();
+	snd.setVolume(.2); // a low sound volume
+
+	// start audio with a mouse tap
+  userStartAudio();
+}
+
+function draw() {
+	// background clouds
+	image(img3, 0, 0, width, height);
+	
+	// set the correct size for the hot air balloon (a transparent .png)
+	img.resize(300, 0);
+	img2.resize(300, 0);
+	image(img, 200 + posX, 120 + posY);
+	if (frameCount == 50) snd.play();
+	if (frameCount == 330) snd.stop();
+  if (frameCount%trigger == 0) snd.play();
+
+	if (posY > 0){
+		fill(255, 215, 0);
+	  ellipse(346 + posX, 450 + posY, 8, 25);
+		fill(255);
+		ellipse(346 + posX, 450 + posY, 4, 15);
+	}
+	// add a small section of the balloon neck that hides the top of the flame
+	// so it seems to be entering the balloon
+	image(img2, 200 + posX, 120 + posY);
+	
+	// move the balloon
+	posX++;
+	posY = sin(frameCount*.01)*100; // sin 
+	if (posX > width) posX = -500;
+	let panning = map(posX, -550, width, -1.0, 1.0);
+	snd.pan(panning);
+}
+
+function keyPressed(){
+  save("img_" + month() + '-' + day() + '_' + hour() + '-' + minute() + '-' + second() + ".jpg");
+}
